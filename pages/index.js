@@ -1,14 +1,18 @@
-import { useState } from "react"
-import {Container,FormControl,FormLabel,Input,Heading,Textarea,FormErrorMessage,Button,Text, useToast} from "@chakra-ui/react"
-import Navbar from "./Navbar"
 import Form from "./Form"
-
+import Hero from "./Hero"
+import Reasons from "./Reasons"
+import SampleButton from "./SampleButton"
+import Footer from "./Footer"
 
 
 export default function Home() {
   return (
-    <Container >
+    <>
     <Form />
-    </Container>
+    <Hero />
+    <Reasons />
+    <SampleButton />
+    <Footer />
+    </>
   )
 }
