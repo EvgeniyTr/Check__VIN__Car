@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "format": "prettier --config .prettierrc '**/*.{ts,js}' --ignore-path .prettierignore --write"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.19",
@@ -29,6 +30,11 @@
   },
   "devDependencies": {
     "@types/node": "20.3.3",
-    "@types/react": "18.2.14"
+    "@types/react": "18.2.14",
+    "prettier": "3.0.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "5.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.59.5",
+    "@typescript-eslint/parser": "^5.59.5"
   }
 }
