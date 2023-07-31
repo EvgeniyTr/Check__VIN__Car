@@ -20,9 +20,9 @@ export const sendMail = async (
         filename: 'report.pdf',
         type: 'application/pdf',
         disposition: 'attachment',
-        content_id: 'vincode report',
-      },
-    ],
+        content_id: 'vincode report'
+      }
+    ]
   }
 
   try {
