@@ -14,14 +14,15 @@ export const sendMail = async (
     subject: 'Sending with SendGrid is Fun',
     text: 'and easy to do anywhere, even with Node.js',
     html: '<strong>and easy to do anywhere, even with Node.js</strong>',
-    attackments: [
+    attachments: [
       {
         content: pdfBuffer.toString('base64'),
         filename: 'report.pdf',
         type: 'application/pdf',
-        disposition: 'attachment'
-      }
-    ]
+        disposition: 'attachment',
+        content_id: 'vincode report',
+      },
+    ],
   }
 
   try {
