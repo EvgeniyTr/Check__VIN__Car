@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { validateMail, validateVincode } from '../lib/validate'
 import {
   Container,
   Heading,
@@ -24,9 +25,45 @@ const initState = { values: initValues }
 export default function Form() {
   const toast = useToast()
   const [state, setState] = useState(initState)
+  const [vendor, setVendor] = useState('carfax')
   const [touched, setTouched] = useState({})
+  const { values, isLoading, error, success, validationError } = state
 
-  const { values, isLoading, error } = state
+  useEffect(() => {
+    if (validationError)
+      toast({
+        title: 'Validation error',
+        description: validationError,
+        status: 'error',
+        duration: 3000,
+        position: 'top',
+        isClosable: true
+      })
+  }, [toast, validationError])
+
+  useEffect(() => {
+    if (success)
+      toast({
+        title: 'Report found',
+        description: success,
+        status: 'success',
+        duration: 3000,
+        position: 'top',
+        isClosable: true
+      })
+  }, [toast, success])
+
+  useEffect(() => {
+    if (error)
+      toast({
+        title: 'Report not found',
+        description: error,
+        status: 'error',
+        duration: 3000,
+        position: 'top',
+        isClosable: true
+      })
+  }, [toast, error])
 
   const onBlur = ({ target }) =>
     setTouched((prev) => ({ ...prev, [target.name]: true }))
@@ -41,11 +78,73 @@ export default function Form() {
     }))
   }
 
-  const onSubmit = () => {
+  const setLoading = (loadingState) => {
     setState((prev) => ({
       ...prev,
-      isLoading: true
+      isLoading: loadingState
     }))
+  }
+
+  const setError = (errorText = '') => {
+    setState((prev) => ({
+      ...prev,
+      error: errorText
+    }))
+  }
+
+  const setValidationError = (errorText = '') => {
+    setState((prev) => ({
+      ...prev,
+      validationError: errorText
+    }))
+  }
+
+  const setSeccuss = (text = '') => {
+    setState((prev) => ({
+      ...prev,
+      success: text
+    }))
+  }
+
+  const handleCarfax = () => {
+    setVendor('carfax')
+  }
+
+  const handleAutocheck = () => {
+    setVendor('autocheck')
+  }
+
+  const onSubmit = async () => {
+    setLoading(true)
+    setError()
+    setSeccuss()
+    setValidationError()
+
+    const getReportStatus = async (vend, vincode, email) => {
+      try {
+        const res = await fetch(
+          `/api/car-info?vendor=${vend}&vincode=${vincode}&receiver=${email}`
+        )
+        const reportStatus = await res.json()
+        if (!reportStatus.reportFound)
+          setError('Could not find report for that vincode')
+        else
+          setState((prev) => ({
+            ...prev,
+            success: 'report found!'
+          }))
+        setLoading(false)
+      } catch (err) {
+        setError('Could not access server. Please try again')
+      }
+    }
+
+    if (validateMail(state.values.email) && validateVincode(state.values.vin)) {
+      await getReportStatus(vendor, state.values.vin, state.values.email)
+    } else {
+      setValidationError('Check vincode and email')
+      setLoading(false)
+    }
   }
   return (
     <Container>
@@ -77,6 +176,7 @@ export default function Form() {
             fontWeight={'bold'}
             as="span"
             fontSize={'lg'}
+            onClick={handleCarfax}
           >
             Carfax
             <br />{' '}
@@ -92,6 +192,7 @@ export default function Form() {
             as="span"
             fontSize={'lg'}
             w="160px"
+            onClick={handleAutocheck}
           >
             Autocheck <br />{' '}
             <Text ml={'25px'} color={'red.300'}>
@@ -101,11 +202,6 @@ export default function Form() {
           </Box>
         </Center>
       </HStack>
-      {error && (
-        <Text color="red.300" my={4} fontSize="xl">
-          {error}
-        </Text>
-      )}
       <FormControl isRequired isInvalid={touched.vin && !values.vin} mb={5}>
         <FormLabel>VIN</FormLabel>
         <Input
