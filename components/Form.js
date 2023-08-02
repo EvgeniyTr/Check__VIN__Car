@@ -153,7 +153,7 @@ export default function Form() {
         mt={'10%'}
         justifyContent={'center'}
         alignItems={'center'}
-        fontSize={{ base: '24px', md: '35px', lg: '40px' }}
+        fontSize={{ base: '22px', md: '24px', lg: '26px' }}
       >
         top VIN number lookup
       </Heading>
