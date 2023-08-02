@@ -1,18 +1,40 @@
-export default async function (req, res) {
+import { NextApiRequest, NextApiResponse } from 'next'
+import {
+  deleteDocumentById,
+  updateSentMail,
+  getDocumentById
+} from '../../lib/firestore'
+import getVinInfo from '../../lib/get-vin-info'
+import generatePDF from '../../lib/generatePDF'
+import { sendMail } from '../../lib/mail'
+export default async function (req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
     const { PaymentStatus, PaymentId } = req.body
 
     switch (PaymentStatus) {
-      case 'Rejected':
-        // remove vincode and mail from database by PaymentId
-        res.status(400).send()
-      case 'Captured':
-        // should generate pdf and send to mail by PaymentId
-        res.status(200).send()
       case 'Timeout':
-      // remove vincode and mail from database by PaymentId
+        await deleteDocumentById(PaymentId)
+        res.send({})
+      case 'Rejected':
+        await deleteDocumentById(PaymentId)
+        res.send({})
+      case 'Captured':
+        try {
+          const doc = await getDocumentById(PaymentId)
+          const data = await getVinInfo(doc.vincode, doc.vendor)
+          const pdfBuffer = await generatePDF(data.autocheck_data)
+          await sendMail(doc.mail, doc.vincode, doc.vendor, pdfBuffer)
+          await updateSentMail(PaymentId)
+          res.send({})
+        } catch (err) {
+          res.send({})
+        }
+      case 'Draft':
+        res.send({})
+      case 'Created':
+        res.send({})
       default:
-        res.status(404).send()
+        res.send({})
     }
   }
 }

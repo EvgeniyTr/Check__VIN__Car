@@ -9,14 +9,12 @@ const checkVin = async (
     )
     const statusCode = response.status
     // report found
-    console.log(statusCode)
     if (statusCode === 200) return true
     // report not found
     if (statusCode === 404) return false
     // server error
     if (!response.ok) throw new Error()
   } catch (err) {
-    console.log(err)
     if (retries > 0) {
       return checkVin(vincode, vendor, retries - 1)
     } else {

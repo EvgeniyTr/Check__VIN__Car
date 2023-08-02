@@ -11,8 +11,26 @@ export const sendMail = async (
   tries: number = 3
 ) => {
   const msg = {
-    to: mail, // Change to your recipient
-    from: 'mts.sturua@gmail.com', // Change to your verified sender
+    personalizations: [
+      {
+        to: [
+          {
+            email: mail
+          }
+        ]
+      }
+    ],
+    // from:'mts.sturua@gmail.com',
+    // to: mail, // Change to your recipient
+    from: {
+      email: 'mts.sturua@gmail.com',
+      name: 'report'
+    },
+    replyTo: {
+      email: mail,
+      address: mail,
+      name: 'report'
+    },
     subject: `${vendor} report`,
     html: `<strong>${vendor} report for ${vincode}</strong>`,
     attachments: [
@@ -29,7 +47,10 @@ export const sendMail = async (
   try {
     await sgMail.send(msg)
   } catch (err) {
-    if (tries > 0) return sendMail(mail, vincode, vendor, pdfBuffer, tries - 1)
-    throw new Error('Could not send mail')
+    if (tries > 0) {
+      return sendMail(mail, vincode, vendor, pdfBuffer, tries - 1)
+    } else {
+      throw new Error('Could not send mail')
+    }
   }
 }

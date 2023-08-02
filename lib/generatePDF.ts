@@ -16,7 +16,6 @@ const generatePDF = async (html: string, tries: number = 3) => {
     await page.setContent(parsedHTML, { waitUntil: 'networkidle0', timeout: 0 })
     const pdf = await page.pdf({ format: 'A4' })
     await page.close()
-    console.log(pdf)
     return pdf
   } catch {
     if (tries > 0) {
