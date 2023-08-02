@@ -11,7 +11,13 @@ const Navbar = () => {
         w={'100%'}
       >
         <Box display="flex">
-          <Link mt="40px" ml={'52px'} fontSize={'2xl'} href="/">
+          <Link
+            mt="40px"
+            ml={'52px'}
+            fontSize={'2xl'}
+            href="/"
+            textColor="white"
+          >
             CheckCar
           </Link>
         </Box>

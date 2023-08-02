@@ -125,7 +125,6 @@ export default function Form() {
 
           headers: {
             'Content-Type': 'application/json'
-            // 'Content-Type': 'application/x-www-form-urlencoded',
           },
           body: JSON.stringify({
             vendor,
@@ -136,7 +135,7 @@ export default function Form() {
         const data = await res.json()
         window.location.replace(data.response.transactionUrl)
       } catch (err) {
-        console.log(err)
+        setError('Could not access payment! Try again')
       }
     }
 
@@ -165,6 +164,7 @@ export default function Form() {
         setLoading(false)
       } catch (err) {
         setError('Could not access server. Please try again')
+        setLoading(false)
       }
     }
 

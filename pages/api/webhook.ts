@@ -29,12 +29,6 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
         } catch (err) {
           res.send({})
         }
-      case 'Draft':
-        res.send({})
-      case 'Created':
-        res.send({})
-      default:
-        res.send({})
     }
   }
 }
