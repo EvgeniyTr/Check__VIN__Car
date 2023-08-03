@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { validateMail, validateVincode } from '../lib/validate'
 import {
   Container,
@@ -12,6 +12,8 @@ import {
   useToast,
   Button
 } from '@chakra-ui/react'
+import { Lang } from '../context'
+import langData from '../locales/langs'
 
 const initValues = {
   vin: '',
@@ -25,6 +27,8 @@ export default function Form() {
   const [state, setState] = useState(initState)
   const [vendor, setVendor] = useState('carfax')
   const [touched, setTouched] = useState({})
+  const { lang, setLang } = useContext(Lang)
+  const { form } = langData[lang]
   const { values, isLoading, error, success, validationError, isUrlLoading } =
     state
 
@@ -184,7 +188,7 @@ export default function Form() {
         alignItems={'center'}
         fontSize={{ base: '22px', md: '24px', lg: '26px' }}
       >
-        top VIN number lookup
+        {form['form-top']}
       </Heading>
       {success && !error ? (
         <HStack m={'10'} justifyContent="center">
@@ -196,7 +200,7 @@ export default function Form() {
             onClick={handleTransaction}
             isLoading={isUrlLoading}
           >
-            Proceed to checkout
+            {form['form-payment']}
           </Button>
         </HStack>
       ) : null}
@@ -213,7 +217,7 @@ export default function Form() {
           flexDirection="column"
         >
           <Text mt="10px" textColor="blue.600" w="full" textAlign="center">
-            Carfax
+            {form['form-carfax']}
           </Text>
           <Text mt="5px" color="red.300" textAlign="justify">
             20₾
@@ -230,7 +234,7 @@ export default function Form() {
           flexDirection="column"
         >
           <Text mt="10px" textColor="blue.600" w="full" textAlign="center">
-            Carcheck
+            {form['form-carcheck']}
           </Text>
           <Text mt="5px" color="red.300" textAlign="justify">
             20₾
@@ -238,7 +242,7 @@ export default function Form() {
         </Button>
       </HStack>
       <FormControl isRequired isInvalid={touched.vin && !values.vin} mb={5}>
-        <FormLabel>VIN</FormLabel>
+        <FormLabel>{form['form-vin']}</FormLabel>
         <Input
           type="text"
           name="vin"
@@ -248,11 +252,11 @@ export default function Form() {
           onChange={handleChange}
           onBlur={onBlur}
         />
-        <FormErrorMessage>Required</FormErrorMessage>
+        <FormErrorMessage>{form['form-required']}</FormErrorMessage>
       </FormControl>
 
       <FormControl isRequired isInvalid={touched.email && !values.email} mb={5}>
-        <FormLabel>Email</FormLabel>
+        <FormLabel>{form['form-email']}</FormLabel>
         <Input
           type="email"
           name="email"
@@ -262,7 +266,7 @@ export default function Form() {
           onChange={handleChange}
           onBlur={onBlur}
         />
-        <FormErrorMessage>Required</FormErrorMessage>
+        <FormErrorMessage>{form['form-required']}</FormErrorMessage>
       </FormControl>
       <Button
         variant="outline"
@@ -273,7 +277,7 @@ export default function Form() {
         onClick={onSubmit}
         isLoading={isLoading}
       >
-        CHECK
+        {form['form-check']}
       </Button>
     </Container>
   )

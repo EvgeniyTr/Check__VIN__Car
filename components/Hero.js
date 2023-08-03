@@ -1,10 +1,15 @@
-import React from 'react'
-import { HStack, Heading, Box, Square, Text, Flex } from '@chakra-ui/react'
+import React, { useContext } from 'react'
+import { Heading, Box, Text, Flex } from '@chakra-ui/react'
 import { BsClock } from 'react-icons/bs'
 import { LiaCoinsSolid } from 'react-icons/lia'
 import { GoShieldCheck } from 'react-icons/go'
+import { Lang } from '../context'
+import data from '../locales/langs'
 
 const Hero = () => {
+  const { lang, setLang } = useContext(Lang)
+  let { hero } = data[lang]
+
   return (
     <Box>
       <Box display="flex" justifyContent="center" width={'100%'}>
@@ -20,8 +25,7 @@ const Hero = () => {
           fontSize={{ base: '16px', md: '20px', lg: '24px' }}
           textAlign="center"
         >
-          VIN check reports for all makes and models of Cars,Trucks,RVs and
-          Motorcycles
+          {hero['hero-title']}
         </Heading>
       </Box>
       <Box display="flex" w={'full'} h="200px" bg={'blue.400'}>
@@ -37,19 +41,19 @@ const Hero = () => {
           <Box>
             <BsClock />
             <Text fontSize={{ base: '16px', md: '20px', lg: '24px' }} mt="5px">
-              SAVE TIME
+              {hero['hero-time']}
             </Text>
           </Box>
           <Box>
-            <LiaCoinsSolid />
+            <LiaCoinsSolid style={{ marginLeft: '15px' }} />
             <Text fontSize={{ base: '16px', md: '20px', lg: '24px' }} mt="5px">
-              SAVE MONEY
+              {hero['hero-money']}
             </Text>
           </Box>
           <Box>
-            <GoShieldCheck />
+            <GoShieldCheck style={{ marginRight: '5px' }} />
             <Text fontSize={{ base: '16px', md: '20px', lg: '24px' }} mt="5px">
-              PROTECT
+              {hero['hero-protect']}
             </Text>
           </Box>
         </Flex>

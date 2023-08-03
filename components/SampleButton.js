@@ -1,7 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Button, Box, Link } from '@chakra-ui/react'
+import { Lang } from '../context'
+import data from '../locales/langs'
 
 const SampleButton = () => {
+  const { lang, setLang } = useContext(Lang)
+  let { sample } = data[lang]
   return (
     <Box display="flex" justifyContent="center" mt="3%">
       <Link
@@ -17,7 +21,7 @@ const SampleButton = () => {
         fontWeight="bold"
         fontSize={{ base: '18px', md: '20px', lg: '25px' }}
       >
-        VIEW SAMPLE REPORT
+        {sample}
       </Link>
     </Box>
   )

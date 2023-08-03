@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { List, ListItem, ListIcon, Box, Heading, Text } from '@chakra-ui/react'
 import { CheckIcon } from '@chakra-ui/icons'
+import { Lang } from '../context'
+import data from '../locales/langs'
 
 const Reasons = () => {
+  const { lang, setLang } = useContext(Lang)
+  let { reason } = data[lang]
   return (
     <Box>
       <Box
@@ -21,51 +25,51 @@ const Reasons = () => {
           alignItems={'center'}
           fontSize={{ base: '24px', md: '26px', lg: '28px' }}
         >
-          10 reason why you must check VIN code
+          {reason['reasons']}
           <Box bg="blue.500" h="3px" m="0 auto" w={['90%', '90%', '50%']}></Box>
         </Heading>
       </Box>
       <Box display="flex" justifyContent="center" ml="10%">
         <List space={3}>
-          <ListItem fontSize={{ base: '17px', md: '18px', lg: '20px' }}>
+          <ListItem fontSize={{ base: '15px', md: '18px', lg: '20px' }}>
             <ListIcon border="50%" as={CheckIcon} color="green.500" />
-            Verify the car's identity
+            {reason['identify']}
           </ListItem>
-          <ListItem fontSize={{ base: '17px', md: '18px', lg: '20px' }}>
+          <ListItem fontSize={{ base: '15px', md: '18px', lg: '20px' }}>
             <ListIcon border="50%" as={CheckIcon} color="green.500" />
-            Check for accidents and damage
+            {reason['accident']}
           </ListItem>
-          <ListItem fontSize={{ base: '17px', md: '18px', lg: '20px' }}>
+          <ListItem fontSize={{ base: '15px', md: '18px', lg: '20px' }}>
             <ListIcon border="50%" as={CheckIcon} color="green.500" />
-            Learn about the car's maintenance history
+            {reason['history']}
           </ListItem>
-          <ListItem fontSize={{ base: '17px', md: '18px', lg: '20px' }}>
+          <ListItem fontSize={{ base: '15px', md: '18px', lg: '20px' }}>
             <ListIcon border="50%" as={CheckIcon} color="green.500" />
-            Avoid buying a stolen car
+            {reason['stolen']}
           </ListItem>
-          <ListItem fontSize={{ base: '17px', md: '18px', lg: '20px' }}>
+          <ListItem fontSize={{ base: '15px', md: '18px', lg: '20px' }}>
             <ListIcon border="50%" as={CheckIcon} color="green.500" />
-            Determine the car's value
+            {reason['value']}
           </ListItem>
-          <ListItem fontSize={{ base: '17px', md: '18px', lg: '20px' }}>
+          <ListItem fontSize={{ base: '15px', md: '18px', lg: '20px' }}>
             <ListIcon border="50%" as={CheckIcon} color="green.500" />
-            Identify any liens on the vehicle
+            {reason['lien']}
           </ListItem>
-          <ListItem fontSize={{ base: '17px', md: '18px', lg: '20px' }}>
+          <ListItem fontSize={{ base: '15px', md: '18px', lg: '20px' }}>
             <ListIcon border="50%" as={CheckIcon} color="green.500" />
-            Check for odemeter tampering
+            {reason['odemeter']}
           </ListItem>
-          <ListItem fontSize={{ base: '17px', md: '18px', lg: '20px' }}>
+          <ListItem fontSize={{ base: '15px', md: '18px', lg: '20px' }}>
             <ListIcon border="50%" as={CheckIcon} color="green.500" />
-            See if the car has been used as a rental or fleet vehicle
+            {reason['rental']}
           </ListItem>
-          <ListItem fontSize={{ base: '17px', md: '18px', lg: '20px' }}>
+          <ListItem fontSize={{ base: '15px', md: '18px', lg: '20px' }}>
             <ListIcon border="50%" as={CheckIcon} color="green.500" />
-            Determine if the car has been in a flood or other natural disaster
+            {reason['disaster']}
           </ListItem>
-          <ListItem fontSize={{ base: '17px', md: '18px', lg: '20px' }}>
+          <ListItem fontSize={{ base: '15px', md: '18px', lg: '20px' }}>
             <ListIcon border="50%" as={CheckIcon} color="green.500" />
-            Check for any outstanding recalls on the vehicle
+            {reason['recall']}
           </ListItem>
         </List>
       </Box>
@@ -79,7 +83,7 @@ const Reasons = () => {
           alignItems={'center'}
           fontSize={{ base: '24px', md: '26px', lg: '28px' }}
         >
-          Why "our company"
+          {reason['why']}
         </Heading>
         <Box bg="blue.500" h="3px" w={['80%', '90%', '40%']} m="0 auto"></Box>
         <Box display="flex" justifyContent="center" mt="1.5%">
@@ -88,9 +92,7 @@ const Reasons = () => {
             w={['80%', '90%', '40%']}
             fontSize={{ base: '17px', md: '18px', lg: '20px' }}
           >
-            Saving customers time and money by quickly and efficiently checking
-            a car's VIN code and providing all relevant information in a clear
-            and concise report
+            {reason['why-text']}
           </Text>
         </Box>
       </Box>
@@ -104,7 +106,7 @@ const Reasons = () => {
           alignItems={'center'}
           fontSize={{ base: '24px', md: '26px', lg: '28px' }}
         >
-          Check fast and easy
+          {reason['fast']}
         </Heading>
         <Box bg="blue.500" h="3px" w={['80%', '90%', '40%']} m="0 auto"></Box>
         <Box display="flex" justifyContent="center" mt="1.5%">
@@ -113,9 +115,7 @@ const Reasons = () => {
             w={['80%', '90%', '40%']}
             fontSize={{ base: '17px', md: '18px', lg: '20px' }}
           >
-            Review the report to get information about the car's
-            make,model,year,engine size,transmission type,and other relevant
-            details
+            {reason['fast-text']}
           </Text>
         </Box>
       </Box>
