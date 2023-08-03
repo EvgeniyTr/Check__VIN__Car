@@ -204,27 +204,35 @@ export default function Form() {
       <HStack m={'10'} justifyContent="center">
         <Button
           w="160px"
-          h="60px"
+          h="70px"
           onClick={handleCarfax}
           border="1px"
           backgroundColor={vendor === 'carfax' ? '#FFF5F5' : '#F1F5FB'}
           borderColor={vendor === 'carfax' ? 'red' : 'white'}
+          display="flex"
+          flexDirection="column"
         >
-          Carfax
-          <Text ml={'10px'} color="red.300">
+          <Text mt="10px" textColor="blue.600" w="full" textAlign="center">
+            Carfax
+          </Text>
+          <Text mt="5px" color="red.300" textAlign="justify">
             20₾
           </Text>
         </Button>
         <Button
-          h="60px"
+          h="70px"
           w="160px"
           border="1px"
           onClick={handleAutocheck}
           backgroundColor={vendor === 'autocheck' ? '#FFF5F5' : '#F1F5FB'}
           borderColor={vendor === 'autocheck' ? 'red' : 'white'}
+          display="flex"
+          flexDirection="column"
         >
-          Autocheck
-          <Text ml={'25px'} color={'red.300'}>
+          <Text mt="10px" textColor="blue.600" w="full" textAlign="center">
+            Carcheck
+          </Text>
+          <Text mt="5px" color="red.300" textAlign="justify">
             20₾
           </Text>
         </Button>
