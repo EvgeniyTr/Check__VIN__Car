@@ -11,7 +11,7 @@ const Navbar = () => {
     setLang(e.target.value)
   }
   return (
-    <Box display="flex" w={'full'} h="100px" bg={'blue.400'}>
+    <Box textColor="white" display="flex" w={'full'} h="100px" bg={'blue.400'}>
       <Box
         display="flex"
         justifyContent={'space-between'}

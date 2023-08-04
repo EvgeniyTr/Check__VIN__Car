@@ -14,6 +14,8 @@ import {
 } from '@chakra-ui/react'
 import { Lang } from '../context'
 import langData from '../locales/langs'
+import { FaBarcode } from 'react-icons/fa'
+import { CiMail } from 'react-icons/ci'
 
 const initValues = {
   vin: '',
@@ -28,45 +30,45 @@ export default function Form() {
   const [vendor, setVendor] = useState('carfax')
   const [touched, setTouched] = useState({})
   const { lang, setLang } = useContext(Lang)
-  const { form } = langData[lang]
+  const { form, errors, successes } = langData[lang]
   const { values, isLoading, error, success, validationError, isUrlLoading } =
     state
 
   useEffect(() => {
     if (validationError)
       toast({
-        title: 'Validation error',
+        title: errors['validation'],
         description: validationError,
         status: 'error',
         duration: 3000,
         position: 'top',
         isClosable: true
       })
-  }, [toast, validationError])
+  }, [toast, validationError, errors])
 
   useEffect(() => {
     if (success)
       toast({
-        title: 'Report found',
+        title: successes['found'],
         description: success,
         status: 'success',
         duration: 3000,
         position: 'top',
         isClosable: true
       })
-  }, [toast, success])
+  }, [toast, success, successes])
 
   useEffect(() => {
     if (error)
       toast({
-        title: 'Report not found',
+        title: errors['notFoundTitle'],
         description: error,
         status: 'error',
         duration: 3000,
         position: 'top',
         isClosable: true
       })
-  }, [toast, error])
+  }, [toast, error, errors])
 
   const onBlur = ({ target }) =>
     setTouched((prev) => ({ ...prev, [target.name]: true }))
@@ -139,7 +141,7 @@ export default function Form() {
         const data = await res.json()
         window.location.replace(data.response.transactionUrl)
       } catch (err) {
-        setError('Could not access payment! Try again')
+        setError(errors['payment'])
       }
     }
 
@@ -158,16 +160,15 @@ export default function Form() {
           `/api/car-info?vendor=${vend}&vincode=${vincode}&receiver=${email}`
         )
         const reportStatus = await res.json()
-        if (!reportStatus.reportFound)
-          setError('Could not find report for that vincode')
+        if (!reportStatus.reportFound) setError(errors['notFound'])
         else
           setState((prev) => ({
             ...prev,
-            success: 'report found!'
+            success: successes['found']
           }))
         setLoading(false)
       } catch (err) {
-        setError('Could not access server. Please try again')
+        setError(errors['server'])
         setLoading(false)
       }
     }
@@ -175,13 +176,15 @@ export default function Form() {
     if (validateMail(state.values.email) && validateVincode(state.values.vin)) {
       await getReportStatus(vendor, state.values.vin, state.values.email)
     } else {
-      setValidationError('Check vincode and email')
+      setValidationError(errors['setValidation'])
       setLoading(false)
     }
   }
   return (
     <>
       <Heading
+        color="#504A4B"
+        fontWeight="semibold"
         display={'flex'}
         mt={'30px'}
         mb={'30px'}
@@ -193,8 +196,9 @@ export default function Form() {
       </Heading>
 
       <Container
-        maxW={['90%', '400px', '500px']}
+        maxW={['90%', '400px', '550px']}
         backgroundColor="white"
+        color="black"
         borderRadius="5px"
         pt="10px"
         pb="2rem"
@@ -251,36 +255,54 @@ export default function Form() {
             </Text>
           </Button>
         </HStack>
-        <FormControl isRequired isInvalid={touched.vin && !values.vin} mb={5}>
-          <FormLabel>{form['form-vin']}</FormLabel>
+        <FormControl
+          alignItems="center"
+          fontSize="25px"
+          display="flex"
+          isRequired
+          isInvalid={touched.vin && !values.vin}
+          mb={5}
+        >
+          <FaBarcode />
           <Input
             type="text"
             name="vin"
             placeholder="VIN"
             errorBorderColor="red.300"
+            _placeholder={{ color: 'gray' }}
+            variant="flushed"
+            outline="none"
+            ml="5px"
+            mr="5px"
             value={values.vin}
             onChange={handleChange}
             onBlur={onBlur}
           />
-          <FormErrorMessage>{form['form-required']}</FormErrorMessage>
         </FormControl>
 
         <FormControl
           isRequired
           isInvalid={touched.email && !values.email}
           mb={5}
+          display="flex"
+          alignItems="center"
+          fontSize="25px"
         >
-          <FormLabel>{form['form-email']}</FormLabel>
+          <CiMail />
           <Input
             type="email"
             name="email"
             placeholder="Email"
+            _placeholder={{ color: 'gray' }}
             errorBorderColor="red.300"
+            color="black"
+            variant="flushed"
+            ml="5px"
+            mr="5px"
             value={values.email}
             onChange={handleChange}
             onBlur={onBlur}
           />
-          <FormErrorMessage>{form['form-required']}</FormErrorMessage>
         </FormControl>
         <Button
           variant="outline"

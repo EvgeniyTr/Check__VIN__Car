@@ -17,6 +17,7 @@ const Reasons = () => {
   let { reason } = data[lang]
   return (
     <Container
+      textColor="black"
       maxW={['90%', '90%', '800px']}
       borderRadius="5px"
       backgroundColor="white"
@@ -36,6 +37,7 @@ const Reasons = () => {
           mb="10"
           alignItems={'center'}
           fontSize={{ base: '24px', md: '26px', lg: '28px' }}
+          textAlign="center"
         >
           {reason['reasons']}
           <Box bg="blue.500" h="3px" m="0 auto" w={['90%', '90%', '65%']}></Box>
@@ -98,7 +100,7 @@ const Reasons = () => {
           {reason['why']}
         </Heading>
 
-        <Box bg="blue.500" h="3px" m="0 auto" w={['98%', '80%', '35%']}></Box>
+        <Box bg="blue.500" h="3px" m="0 auto" w={['65%', '40%', '35%']}></Box>
         <Box display="flex" justifyContent="center" mt="1.5%">
           <Text
             disply="flex"

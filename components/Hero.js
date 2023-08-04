@@ -12,7 +12,12 @@ const Hero = () => {
 
   return (
     <Box>
-      <Box display="flex" justifyContent="center" width={'100%'}>
+      <Box
+        textColor="black"
+        display="flex"
+        justifyContent="center"
+        width={'100%'}
+      >
         <Heading
           mt={'50px'}
           // w="100%"
@@ -20,6 +25,7 @@ const Hero = () => {
           mr="auto"
           mb="50px"
           pl="20px"
+          color="#504A4B"
           pr="20px"
           alignItems={'center'}
           fontSize={{ base: '16px', md: '20px', lg: '24px' }}

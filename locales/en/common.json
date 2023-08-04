@@ -15,7 +15,7 @@
     "form-vin": "VIN",
     "form-required": "Required",
     "form-email": "Email",
-    "form-check": "Required"
+    "form-check": "Check"
   },
   "reason": {
     "reasons": "10 reason why you must check VIN code",
@@ -33,5 +33,16 @@
     "why-text": "Saving customers time and money by quickly and efficiently checking a car's VIN code and providing all relevant information in a clear and concise report",
     "fast": "Check fast and easy",
     "fast-text": "Review the report to get information about the car's make,model,year,engine size,transmission type,and other relevant details"
+  },
+  "errors": {
+    "validation": "Validation error",
+    "setValidation": "Check vincode and email",
+    "notFoundTitle": "Report not found",
+    "notFound": "Could not find report for that vincode",
+    "server": "Could not access server. Please try again",
+    "payment": "Could not access payment! Try again"
+  },
+  "successes": {
+    "found": "Report found!"
   }
 }
