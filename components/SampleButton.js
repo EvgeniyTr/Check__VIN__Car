@@ -7,7 +7,7 @@ const SampleButton = () => {
   const { lang, setLang } = useContext(Lang)
   let { sample } = data[lang]
   return (
-    <Box display="flex" justifyContent="center" mt="3%">
+    <Box display="flex" justifyContent="center" mt="50px">
       <Link
         href="/Sample.pdf"
         target="_blank"

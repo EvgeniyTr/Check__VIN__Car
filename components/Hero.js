@@ -14,11 +14,11 @@ const Hero = () => {
     <Box>
       <Box display="flex" justifyContent="center" width={'100%'}>
         <Heading
-          mt={'10%'}
+          mt={'50px'}
           // w="100%"
           ml="auto"
           mr="auto"
-          mb="20"
+          mb="50px"
           pl="20px"
           pr="20px"
           alignItems={'center'}

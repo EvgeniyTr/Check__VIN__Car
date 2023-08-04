@@ -1,10 +1,9 @@
 import React from 'react'
 import { Box, Link, Text } from '@chakra-ui/react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const Footer = () => {
   return (
-    <Box h="100px" bg="blue.500" mt="5%">
+    <Box h="100px" bg="blue.500" mt="50px">
       <Box display="flex" flexDirection="column" p="6" w="100%" h="100px">
         <Box display="flex" alignItems="center">
           <svg

@@ -1,5 +1,13 @@
 import React, { useContext } from 'react'
-import { List, ListItem, ListIcon, Box, Heading, Text } from '@chakra-ui/react'
+import {
+  List,
+  ListItem,
+  ListIcon,
+  Box,
+  Heading,
+  Text,
+  Container
+} from '@chakra-ui/react'
 import { CheckIcon } from '@chakra-ui/icons'
 import { Lang } from '../context'
 import data from '../locales/langs'
@@ -8,13 +16,17 @@ const Reasons = () => {
   const { lang, setLang } = useContext(Lang)
   let { reason } = data[lang]
   return (
-    <Box>
-      <Box
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        ml={[8, 3]}
-      >
+    <Container
+      maxW={['90%', '90%', '800px']}
+      borderRadius="5px"
+      backgroundColor="white"
+      boxShadow="0px 10px 15px -3px rgba(0,0,0,0.1)"
+      pb="50px"
+      ml="auto"
+      mr="auto"
+      mt="50px"
+    >
+      <Box display="flex" justifyContent="center" alignItems="center">
         <Heading
           display="flex"
           justifyContent="center"
@@ -85,7 +97,8 @@ const Reasons = () => {
         >
           {reason['why']}
         </Heading>
-        <Box bg="blue.500" h="3px" w={['80%', '90%', '40%']} m="0 auto"></Box>
+
+        <Box bg="blue.500" h="3px" m="0 auto" w={['98%', '80%', '70%']}></Box>
         <Box display="flex" justifyContent="center" mt="1.5%">
           <Text
             disply="flex"
@@ -108,7 +121,8 @@ const Reasons = () => {
         >
           {reason['fast']}
         </Heading>
-        <Box bg="blue.500" h="3px" w={['80%', '90%', '40%']} m="0 auto"></Box>
+
+        <Box bg="blue.500" h="3px" w={['65%', '40%', '35%']} m="0 auto"></Box>
         <Box display="flex" justifyContent="center" mt="1.5%">
           <Text
             disply="flex"
@@ -119,7 +133,7 @@ const Reasons = () => {
           </Text>
         </Box>
       </Box>
-    </Box>
+    </Container>
   )
 }
 
