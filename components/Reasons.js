@@ -38,7 +38,7 @@ const Reasons = () => {
           fontSize={{ base: '24px', md: '26px', lg: '28px' }}
         >
           {reason['reasons']}
-          <Box bg="blue.500" h="3px" m="0 auto" w={['90%', '90%', '50%']}></Box>
+          <Box bg="blue.500" h="3px" m="0 auto" w={['90%', '90%', '65%']}></Box>
         </Heading>
       </Box>
       <Box display="flex" justifyContent="center" ml="10%">
@@ -98,7 +98,7 @@ const Reasons = () => {
           {reason['why']}
         </Heading>
 
-        <Box bg="blue.500" h="3px" m="0 auto" w={['98%', '80%', '70%']}></Box>
+        <Box bg="blue.500" h="3px" m="0 auto" w={['98%', '80%', '35%']}></Box>
         <Box display="flex" justifyContent="center" mt="1.5%">
           <Text
             disply="flex"
