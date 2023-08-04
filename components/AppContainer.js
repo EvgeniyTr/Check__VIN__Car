@@ -19,7 +19,12 @@ const AppContainer = ({ children }) => {
         <title>Top VIN number lookup!</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <Box backgroundColor="#F1F4FD">
+      <Box
+        display="flex"
+        flexDirection="column"
+        minHeight="100vh"
+        backgroundColor="#F1F4FD"
+      >
         <Navbar />
         <Form />
         <Hero />

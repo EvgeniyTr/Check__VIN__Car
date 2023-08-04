@@ -1,6 +1,9 @@
 import { getTransactionURL } from '../../lib/payment'
 import { NextApiRequest, NextApiResponse } from 'next'
-export default async function (req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   if (req.method === 'POST') {
     const { vincode, mail, vendor } = req.body
     try {

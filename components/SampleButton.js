@@ -18,6 +18,8 @@ const SampleButton = () => {
         borderRadius="2xl"
         textAlign="center"
         p=".8rem"
+        mt="-10px"
+        mb="40px"
         fontWeight="bold"
         fontSize={{ base: '18px', md: '20px', lg: '25px' }}
       >

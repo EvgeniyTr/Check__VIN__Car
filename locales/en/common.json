@@ -40,6 +40,7 @@
     "notFoundTitle": "Report not found",
     "notFound": "Could not find report for that vincode",
     "server": "Could not access server. Please try again",
+    "balance": "Could not access server. Please try again later",
     "payment": "Could not access payment! Try again"
   },
   "successes": {

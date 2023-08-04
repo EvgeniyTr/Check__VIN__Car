@@ -3,7 +3,7 @@ import { Box, Link, Text } from '@chakra-ui/react'
 
 const Footer = () => {
   return (
-    <Box h="100px" bg="blue.500" mt="50px">
+    <Box mt="auto" h="100px" bg="blue.500">
       <Box display="flex" flexDirection="column" p="6" w="100%" h="100px">
         <Box display="flex" alignItems="center">
           <svg
