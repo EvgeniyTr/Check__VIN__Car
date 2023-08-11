@@ -182,17 +182,19 @@ export default function Form() {
     const getReportStatus = async (vend, vincode, email) => {
       try {
         const balance = await fetch('/api/balance')
-        if (balance.statusCode === 200) {
+        if (balance.status === 200) {
           const res = await fetch(
             `/api/car-info?vendor=${vend}&vincode=${vincode}&receiver=${email}`
           )
           const reportStatus = await res.json()
-          if (!reportStatus.reportFound) setError(errors['notFound'])
-          else
+          if (!reportStatus.reportFound) {
+            setError(errors['notFound'])
+          } else {
             setState((prev) => ({
               ...prev,
               success: successes['found']
             }))
+          }
         } else {
           setServerError(errors['balance'])
         }
@@ -205,6 +207,7 @@ export default function Form() {
 
     if (validateMail(state.values.email) && validateVincode(state.values.vin)) {
       await getReportStatus(vendor, state.values.vin, state.values.email)
+      // setLoading(false)
     } else {
       setValidationError(errors['setValidation'])
       setLoading(false)

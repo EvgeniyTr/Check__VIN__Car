@@ -22,7 +22,13 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
         try {
           const doc = await getDocumentById(PaymentId)
           const data = await getVinInfo(doc.vincode, doc.vendor)
-          const pdfBuffer = await generatePDF(data.autocheck_data)
+          let pdfBuffer
+
+          if (doc.vendor === 'carfax') {
+            pdfBuffer = await generatePDF(data.carfax_data)
+          } else if (doc.vendor === 'autocheck') {
+            pdfBuffer = await generatePDF(data.autocheck_data)
+          }
           await sendMail(doc.mail, doc.vincode, doc.vendor, pdfBuffer)
           await updateSentMail(PaymentId)
           res.send({})
@@ -30,5 +36,11 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
           res.send({})
         }
     }
+  }
+}
+
+export const config = {
+  api: {
+    externalResolver: true
   }
 }

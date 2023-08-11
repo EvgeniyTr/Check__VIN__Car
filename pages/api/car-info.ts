@@ -30,7 +30,6 @@ export default async function handler(
     if (!condArray.includes(false)) {
       // if vincode report exists
       const reportFound = await checkVin(vincode, vendor)
-      // this should redirect to payment
       res.status(200).send({ vendor, vincode, receiver, reportFound })
     } else {
       res.status(400).send({ msg: 'error' })
