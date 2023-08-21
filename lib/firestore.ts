@@ -19,9 +19,9 @@ const firebaseConfig = {
   appId: '1:232708747254:web:97a3f52607d8e57b6e61d7'
 }
 
-initializeApp(firebaseConfig)
-const auth = getAuth()
-const db = getFirestore()
+const app = initializeApp(firebaseConfig)
+const auth = getAuth(app)
+const db = getFirestore(app)
 
 const signIn = async () => {
   await signInWithEmailAndPassword(
