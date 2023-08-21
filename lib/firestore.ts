@@ -11,12 +11,12 @@ import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import { getEnvVar } from './getEnvVar'
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyB3x4jBRaQ7JwZ1AIrb6ydih7GfjJWKG7E',
-  authDomain: 'vincode-4c6c9.firebaseapp.com',
-  projectId: 'vincode-4c6c9',
-  storageBucket: 'vincode-4c6c9.appspot.com',
-  messagingSenderId: '232708747254',
-  appId: '1:232708747254:web:97a3f52607d8e57b6e61d7'
+  apiKey: "AIzaSyC0w1VKcui8zWCHWWm11cKNoo7KZc6inWk",
+  authDomain: "autovin-8c1d3.firebaseapp.com",
+  projectId: "autovin-8c1d3",
+  storageBucket: "autovin-8c1d3.appspot.com",
+  messagingSenderId: "192884571607",
+  appId: "1:192884571607:web:84ea1089e90d10fe095f92"
 }
 
 const app = initializeApp(firebaseConfig)

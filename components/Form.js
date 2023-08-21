@@ -296,7 +296,7 @@ export default function Form() {
                 {form['form-carfax']}
               </Text>
               <Text mt="5px" color="red.300" textAlign="justify">
-                {process.env.EXT_PUBLIC_CARFAX_PRICE}₾
+                {process.env.NEXT_PUBLIC_CARFAX_PRICE}₾
               </Text>
             </Button>
             <Button
