@@ -4,9 +4,8 @@ import {
   Container,
   Heading,
   FormControl,
-  FormLabel,
   Input,
-  FormErrorMessage,
+  Box,
   HStack,
   Text,
   useToast,
@@ -16,6 +15,7 @@ import { Lang } from '../context'
 import langData from '../locales/langs'
 import { FaBarcode } from 'react-icons/fa'
 import { CiMail } from 'react-icons/ci'
+import { getEnvVar } from '../lib/getEnvVar'
 
 const initValues = {
   vin: '',
@@ -159,7 +159,7 @@ export default function Form() {
           },
           body: JSON.stringify({
             vendor,
-            vincode: values.vin,
+            vincode: values.vin.toUpperCase(),
             mail: values.email
           })
         })
@@ -184,7 +184,7 @@ export default function Form() {
         const balance = await fetch('/api/balance')
         if (balance.status === 200) {
           const res = await fetch(
-            `/api/car-info?vendor=${vend}&vincode=${vincode}&receiver=${email}`
+            `/api/car-info?vendor=${vend}&vincode=${vincode.toUpperCase()}&receiver=${email}`
           )
           const reportStatus = await res.json()
           if (!reportStatus.reportFound) {
@@ -205,8 +205,15 @@ export default function Form() {
       }
     }
 
-    if (validateMail(state.values.email) && validateVincode(state.values.vin)) {
-      await getReportStatus(vendor, state.values.vin, state.values.email)
+    if (
+      validateMail(state.values.email) &&
+      validateVincode(state.values.vin.toUpperCase())
+    ) {
+      await getReportStatus(
+        vendor,
+        state.values.vin.toUpperCase(),
+        state.values.email
+      )
       // setLoading(false)
     } else {
       setValidationError(errors['setValidation'])
@@ -214,141 +221,164 @@ export default function Form() {
     }
   }
   return (
-    <>
-      <Heading
-        color="#504A4B"
-        fontWeight="semibold"
-        display={'flex'}
-        mt={'30px'}
-        mb={'30px'}
-        justifyContent={'center'}
-        alignItems={'center'}
-        fontSize={{ base: '20px', md: '22px', lg: '24px' }}
+    <Box
+      // backgroundImage="/car.png"
+      // backgroundPosition={{ base: 'bottom', md: 'bottom', lg: 'center' }}
+      // backgroundRepeat="no-repeat"
+      // backgroundAttachment="fixed"
+      // backgroundSize="contain"
+      ml="auto"
+      mr="auto"
+      h={{ base: '700px', md: '700px', lg: '780px' }}
+      display="flex"
+      justifyContent="center"
+    >
+      <Box
+        w="380px"
+        pb="40px"
+        h="fit-content"
+        mt={{ base: '50px', md: '100px', lg: '150px' }}
+        borderRadius="20px"
+        backdropFilter="blur(10px)"
+        backgroundColor="rgba(100,100,100,.2)"
       >
-        {form['form-top']}
-      </Heading>
+        <Heading
+          color="#504A4B"
+          textColor="white"
+          fontWeight="semibold"
+          display={'flex'}
+          mt={'30px'}
+          mb={'30px'}
+          justifyContent={'center'}
+          alignItems={'center'}
+          fontSize={{ base: '20px', md: '22px', lg: '24px' }}
+        >
+          {form['form-top']}
+        </Heading>
 
-      <Container
-        maxW={['90%', '400px', '550px']}
-        backgroundColor="white"
-        color="black"
-        borderRadius="5px"
-        pt="10px"
-        pb="2rem"
-        boxShadow="0px 10px 15px -3px rgba(0,0,0,0.1)"
-      >
-        {success && !error ? (
-          <HStack m={'10'} justifyContent="center">
+        <Container
+          maxW={['90%', '340px', '300px']}
+          backgroundColor="white"
+          color="black"
+          borderRadius="2px"
+          pt="20px"
+          pb="15px"
+          boxShadow="0px 10px 15px -3px rgba(0,0,0,0.1)"
+        >
+          {success && !error ? (
+            <HStack justifyContent="center">
+              <Button
+                size="md"
+                variant="solid"
+                w="full"
+                colorScheme="blue"
+                mb="10px"
+                onClick={handleTransaction}
+                isLoading={isUrlLoading}
+              >
+                {form['form-payment']}
+              </Button>
+            </HStack>
+          ) : null}
+
+          <HStack mb="20px" justifyContent="center">
             <Button
-              size="md"
-              variant="solid"
-              w="full"
-              colorScheme="blue"
-              onClick={handleTransaction}
-              isLoading={isUrlLoading}
+              w="160px"
+              h="60px"
+              onClick={handleCarfax}
+              border="1px"
+              backgroundColor={vendor === 'carfax' ? '#FFF5F5' : '#F1F5FB'}
+              borderColor={vendor === 'carfax' ? 'red' : 'white'}
+              display="flex"
+              flexDirection="column"
             >
-              {form['form-payment']}
+              <Text mt="10px" textColor="blue.600" w="full" textAlign="center">
+                {form['form-carfax']}
+              </Text>
+              <Text mt="5px" color="red.300" textAlign="justify">
+                {process.env.EXT_PUBLIC_CARFAX_PRICE}₾
+              </Text>
+            </Button>
+            <Button
+              h="60px"
+              w="160px"
+              border="1px"
+              onClick={handleAutocheck}
+              backgroundColor={vendor === 'autocheck' ? '#FFF5F5' : '#F1F5FB'}
+              borderColor={vendor === 'autocheck' ? 'red' : 'white'}
+              display="flex"
+              flexDirection="column"
+            >
+              <Text mt="10px" textColor="blue.600" w="full" textAlign="center">
+                {form['form-carcheck']}
+              </Text>
+              <Text mt="5px" color="red.300" textAlign="justify">
+                {process.env.NEXT_PUBLIC_AUTOCHECK_PRICE}₾
+              </Text>
             </Button>
           </HStack>
-        ) : null}
-
-        <HStack m={'10'} justifyContent="center">
-          <Button
-            w="160px"
-            h="70px"
-            onClick={handleCarfax}
-            border="1px"
-            backgroundColor={vendor === 'carfax' ? '#FFF5F5' : '#F1F5FB'}
-            borderColor={vendor === 'carfax' ? 'red' : 'white'}
+          <FormControl
+            alignItems="center"
+            fontSize="25px"
             display="flex"
-            flexDirection="column"
+            isRequired
+            isInvalid={touched.vin && !values.vin}
+            mb={5}
           >
-            <Text mt="10px" textColor="blue.600" w="full" textAlign="center">
-              {form['form-carfax']}
-            </Text>
-            <Text mt="5px" color="red.300" textAlign="justify">
-              20₾
-            </Text>
-          </Button>
-          <Button
-            h="70px"
-            w="160px"
-            border="1px"
-            onClick={handleAutocheck}
-            backgroundColor={vendor === 'autocheck' ? '#FFF5F5' : '#F1F5FB'}
-            borderColor={vendor === 'autocheck' ? 'red' : 'white'}
-            display="flex"
-            flexDirection="column"
-          >
-            <Text mt="10px" textColor="blue.600" w="full" textAlign="center">
-              {form['form-carcheck']}
-            </Text>
-            <Text mt="5px" color="red.300" textAlign="justify">
-              20₾
-            </Text>
-          </Button>
-        </HStack>
-        <FormControl
-          alignItems="center"
-          fontSize="25px"
-          display="flex"
-          isRequired
-          isInvalid={touched.vin && !values.vin}
-          mb={5}
-        >
-          <FaBarcode />
-          <Input
-            type="text"
-            name="vin"
-            placeholder="VIN"
-            errorBorderColor="red.300"
-            _placeholder={{ color: 'gray' }}
-            variant="flushed"
-            outline="none"
-            ml="5px"
-            mr="5px"
-            value={values.vin}
-            onChange={handleChange}
-            onBlur={onBlur}
-          />
-        </FormControl>
+            <FaBarcode />
+            <Input
+              type="text"
+              name="vin"
+              placeholder="VIN"
+              errorBorderColor="red.300"
+              _placeholder={{ color: 'gray' }}
+              variant="flushed"
+              outline="none"
+              ml="5px"
+              mr="5px"
+              value={values.vin}
+              onChange={handleChange}
+              onBlur={onBlur}
+            />
+          </FormControl>
 
-        <FormControl
-          isRequired
-          isInvalid={touched.email && !values.email}
-          mb={5}
-          display="flex"
-          alignItems="center"
-          fontSize="25px"
-        >
-          <CiMail />
-          <Input
-            type="email"
-            name="email"
-            placeholder="Email"
-            _placeholder={{ color: 'gray' }}
-            errorBorderColor="red.300"
-            color="black"
-            variant="flushed"
-            ml="5px"
-            mr="5px"
-            value={values.email}
-            onChange={handleChange}
-            onBlur={onBlur}
-          />
-        </FormControl>
-        <Button
-          variant="outline"
-          w={'70%'}
-          ml="15%"
-          colorScheme="blue"
-          disabled={!values.vin || !values.email}
-          onClick={onSubmit}
-          isLoading={isLoading}
-        >
-          {form['form-check']}
-        </Button>
-      </Container>
-    </>
+          <FormControl
+            isRequired
+            isInvalid={touched.email && !values.email}
+            mb={5}
+            display="flex"
+            alignItems="center"
+            fontSize="25px"
+          >
+            <CiMail />
+            <Input
+              type="email"
+              name="email"
+              placeholder="Email"
+              _placeholder={{ color: 'gray' }}
+              errorBorderColor="red.300"
+              color="black"
+              variant="flushed"
+              ml="5px"
+              mr="5px"
+              value={values.email}
+              onChange={handleChange}
+              onBlur={onBlur}
+            />
+          </FormControl>
+          <Button
+            variant="outline"
+            w={'70%'}
+            ml="15%"
+            colorScheme="blue"
+            disabled={!values.vin || !values.email}
+            onClick={onSubmit}
+            isLoading={isLoading}
+          >
+            {form['form-check']}
+          </Button>
+        </Container>
+      </Box>
+    </Box>
   )
 }

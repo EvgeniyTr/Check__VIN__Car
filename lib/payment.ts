@@ -21,13 +21,13 @@ const getTransactionURL = async (
         apiSecret: getEnvVar('PAYZE_SECRET'),
         data: {
           amount: amount,
-          currency: 'USD',
-          callback: 'http://localhost:3000',
-          callbackError: 'https://corp.com/fail_url',
+          currency: 'GEL',
+          callback: getEnvVar('CALLBACK_URL'),
+          callbackError: getEnvVar('CALLBACK_URL'),
           preauthorize: false,
           lang: 'EN',
           hookUrl: 'https://corp.com/payze_hook?authorization_token=token',
-          hookUrlV2: 'https://0329-31-192-15-188.ngrok.io/api/webhook',
+          hookUrlV2: `${getEnvVar('CALLBACK_URL')}/api/webhook`,
           info: {
             description: `Report for ${vincode}`,
             name: vincode
