@@ -10,7 +10,7 @@ const Footer = () => {
     <>
       <Box
         mt="auto"
-        h={['150px', '250px', '250px']}
+        h={['150px', '200px', '200px']}
         bg="#2D5697"
         maxW="full"
         display="flex"
@@ -102,11 +102,12 @@ const Footer = () => {
           textAlign={['center', 'end', 'end']}
           w="50%"
           mr={['5px', '40px', '40px']}
+          color="#6C88B6"
         >
-          copyright
+          Copyright &copy; 2023
         </Text>
-        <Text textAlign={['center', 'start', 'start']} w="50%">
-          all rights reserved
+        <Text textAlign={['center', 'start', 'start']} w="50%" color="#6C88B6">
+          All rights reserved
         </Text>
       </Box>
     </>
