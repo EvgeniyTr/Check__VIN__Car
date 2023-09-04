@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
-const puppeteer = require('puppeteer')
+const puppeteer = require('puppeteer-core')
+const chromium = require('@sparticuz/chromium')
 const nextConfig = {}
 
 module.exports = {
@@ -8,7 +9,8 @@ module.exports = {
       let browser;
       try {
         browser = await puppeteer.launch({
-          headless: 'new',
+        headless: await chromium.headless,
+        executablePath: await chromium.executablePath(),
           args: [
             '--no-sandbox',
             '--disable-setup-sandbox',

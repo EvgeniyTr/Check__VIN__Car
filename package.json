@@ -2,11 +2,13 @@
   "name": "check-vincode",
   "version": "0.1.0",
   "private": true,
+  "node": "16",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "postinstall": "node node_modules/puppeteer/install.js",
     "format": "prettier --config .prettierrc '**/*.{ts,js}' --ignore-path .prettierignore --write"
   },
   "dependencies": {
@@ -31,11 +33,13 @@
     "npm": "^9.8.1",
     "postcss": "8.4.24",
     "puppeteer": "^20.9.0",
+    "puppeteer-core": "^20.9.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.10.1",
     "tailwindcss": "3.3.2",
-    "vin-validator": "^1.0.0"
+    "vin-validator": "^1.0.0",
+    "@sparticuz/chromium": "^115.0.0"
   },
   "devDependencies": {
     "@types/node": "20.3.3",
