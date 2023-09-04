@@ -27,7 +27,7 @@ const getTransactionURL = async (
           preauthorize: false,
           lang: 'EN',
           hookUrl: 'https://corp.com/payze_hook?authorization_token=token',
-          hookUrlV2: `${getEnvVar('CALLBACK_URL')}/api/webhook`,
+          hookUrlV2: `${getEnvVar('WEBHOOK_CALLBACK')}/api/webhook`,
           info: {
             description: `Report for ${vincode}`,
             name: vincode
